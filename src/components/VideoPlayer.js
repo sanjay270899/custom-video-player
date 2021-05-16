@@ -1,45 +1,37 @@
+import { useState, useRef } from "react";
 import Reactplayer from "react-player";
 import styles from "../styles/VideoPlayer.module.scss";
-import { Container, Row, Col } from "react-bootstrap";
-import {
-  Forward10,
-  FullScreen,
-  Play,
-  Replay10,
-  VolumeHigh
-} from "../assets/Icons";
-import { Slider } from "@material-ui/core";
+import { VideoControls } from "./VideoControls";
 
 export const VideoPlayer = ({ url }) => {
-  return (
-    <main className={styles["VideoPlayerWrapper"]}>
-      <Reactplayer url={url} width="100%" height="100%" />
-      <Container fluid className={styles["controls"]}>
-        {/* TOP: Title */}
-        <Row className="w-100">
-          <Col className="fs-3 fw-bold">Title</Col>
-        </Row>
+  const videoRef = useRef(null);
+  const videoWrapperRef = useRef(null);
 
-        {/* BOTTOM: Controls */}
-        <Row className="w-100">
-          <Col className="">
-            <Row className="mx-1">
-              <Slider />
-            </Row>
-            <Row className="d-flex">
-              <Col className="">
-                <Play />
-                <Replay10 />
-                <Forward10 />
-                <VolumeHigh />
-              </Col>
-              <Col className="col-2 d-flex flex-row-reverse">
-                <FullScreen />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
+  const [videoControls, setVideoControls] = useState({
+    playing: false,
+    muted: false,
+    volume: 0.5,
+    speed: 1
+  });
+
+  return (
+    <main className={`${styles["VideoPlayerWrapper"]} bg-dark`}>
+      <Reactplayer
+        ref={videoRef}
+        url={url}
+        width="100%"
+        height="100%"
+        playing={videoControls.playing}
+        muted={videoControls.muted}
+        volume={videoControls.volume}
+        playbackRate={videoControls.speed}
+      />
+      <VideoControls
+        controls={videoControls}
+        setControls={setVideoControls}
+        videoRef={videoRef}
+        videoWrapperRef={videoWrapperRef}
+      />
     </main>
   );
 };
