@@ -7,6 +7,8 @@ export const VideoPlayer = ({ url }) => {
   const videoRef = useRef(null);
   const videoWrapperRef = useRef(null);
 
+  const [controlsVisibility, setControlsVisibility] = useState(false);
+
   const [videoControls, setVideoControls] = useState({
     playing: false,
     muted: false,
@@ -14,8 +16,18 @@ export const VideoPlayer = ({ url }) => {
     speed: 1
   });
 
+  const handleOnHover = () => {
+    if (!controlsVisibility) {
+      setControlsVisibility(true);
+      setTimeout(() => setControlsVisibility(false), 3000);
+    }
+  };
+
   return (
-    <main className={`${styles["VideoPlayerWrapper"]} bg-dark`}>
+    <main
+      className={`${styles["VideoPlayerWrapper"]} bg-dark`}
+      onMouseMove={() => handleOnHover()}
+    >
       <Reactplayer
         ref={videoRef}
         url={url}
@@ -26,12 +38,14 @@ export const VideoPlayer = ({ url }) => {
         volume={videoControls.volume}
         playbackRate={videoControls.speed}
       />
-      <VideoControls
-        controls={videoControls}
-        setControls={setVideoControls}
-        videoRef={videoRef}
-        videoWrapperRef={videoWrapperRef}
-      />
+      {controlsVisibility && (
+        <VideoControls
+          controls={videoControls}
+          setControls={setVideoControls}
+          videoRef={videoRef}
+          videoWrapperRef={videoWrapperRef}
+        />
+      )}
     </main>
   );
 };
