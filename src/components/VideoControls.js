@@ -126,14 +126,14 @@ export const VideoControls = ({
   };
 
   return (
-    <Container fluid className={styles["controls"]}>
+    <Container fluid className={styles["controls-overlay"]}>
       {/* TOP: Title */}
-      <Row className="w-100">
+      <Row className={`w-100 ${styles["title"]}`}>
         <Col className="fs-3 fw-bold">Title</Col>
       </Row>
 
       {/* BOTTOM: Controls */}
-      <Row className="w-100">
+      <Row className={`w-100 ${styles["controls"]}`}>
         <Col className="">
           <Row className="mx-1">
             <Slider
@@ -163,9 +163,8 @@ export const VideoControls = ({
                 <Forward10 />
               </Icon>
               {/* CONTROL: Volume */}
-              <div
-                className="d-flex"
-                style={{ width: "150px" }}
+              <span
+                className="d-flex align-items-center"
                 onMouseEnter={() => setVolumeSlider(true)}
                 onMouseLeave={() => setVolumeSlider(false)}
               >
@@ -181,15 +180,20 @@ export const VideoControls = ({
                   )}
                 </Icon>
                 {volumeSlider && (
-                  <WhiteSlider
-                    min={0}
-                    max={100}
-                    value={controls.muted ? 0 : controls.volume * 100}
-                    onChange={handleVolumeChange}
-                    onChangeCommitted={handleVolumeCommited}
-                  />
+                  <span
+                    style={{ width: "100px", marginRight: "1rem" }}
+                    className="d-flex"
+                  >
+                    <WhiteSlider
+                      min={0}
+                      max={100}
+                      value={controls.muted ? 0 : controls.volume * 100}
+                      onChange={handleVolumeChange}
+                      onChangeCommitted={handleVolumeCommited}
+                    />
+                  </span>
                 )}
-              </div>
+              </span>
               <span>{`${currentTime} / ${totalTime}`}</span>
             </Col>
             <Col className="d-flex justify-content-end align-items-center fs-4">
