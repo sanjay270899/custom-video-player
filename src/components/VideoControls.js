@@ -15,6 +15,7 @@ import {
 import { Slider } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import screenfull from "screenfull";
+import { formatTime } from "../assets/Helper.js";
 
 // Overriding the default color of Slider to White
 const WhiteSlider = withStyles({
@@ -31,6 +32,14 @@ export const VideoControls = ({
 }) => {
   // Volume Slider Visible on Hover
   const [volumeSlider, setVolumeSlider] = useState(false);
+
+  const currentSeconds = videoRef.current
+    ? videoRef.current.getCurrentTime()
+    : 0;
+  const totalSeconds = videoRef.current ? videoRef.current.getDuration() : 0;
+
+  const currentTime = formatTime(currentSeconds);
+  const totalTime = formatTime(totalSeconds);
 
   // Funtion to Handle Play/Pause Button
   const handlePlayPause = () => {
@@ -90,6 +99,32 @@ export const VideoControls = ({
     screenfull.toggle(videoWrapperRef.current);
   };
 
+  // Function to Handle Video Seekbar Slider Change
+  const handleSeekbarChange = (e, newPlayed) => {
+    setControls({
+      ...controls,
+      played: newPlayed / 100
+    });
+    videoRef.current.seekTo(newPlayed / 100, "fraction");
+  };
+
+  // Function to Handle Mouse Down on Video Seekbar Slider
+  const handleSeekbarMouseDown = () => {
+    setControls({
+      ...controls,
+      seeking: true
+    });
+  };
+
+  // Function to Handle Mouse Up on Video Seekbar Slider
+  const handleSeekbarMouseUp = (e, newPlayed) => {
+    setControls({
+      ...controls,
+      seeking: false
+    });
+    videoRef.current.seekTo(newPlayed / 100, "fraction");
+  };
+
   return (
     <Container fluid className={styles["controls"]}>
       {/* TOP: Title */}
@@ -101,7 +136,17 @@ export const VideoControls = ({
       <Row className="w-100">
         <Col className="">
           <Row className="mx-1">
-            <Slider min={0} max={100} color="secondary" />
+            <Slider
+              min={0}
+              max={100}
+              color="secondary"
+              value={controls.played * 100}
+              onChange={handleSeekbarChange}
+              onMouseDown={handleSeekbarMouseDown}
+              onChangeCommitted={handleSeekbarMouseUp}
+              valueLabelDisplay="auto"
+              scale={x => parseInt((totalSeconds * x) / 100)}
+            />
           </Row>
           <Row className="">
             <Col className="d-flex align-items-center">
@@ -145,6 +190,7 @@ export const VideoControls = ({
                   />
                 )}
               </div>
+              <span>{`${currentTime} / ${totalTime}`}</span>
             </Col>
             <Col className="d-flex justify-content-end align-items-center fs-4">
               {/* CONTROL: Speed */}

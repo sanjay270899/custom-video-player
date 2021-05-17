@@ -13,13 +13,22 @@ export const VideoPlayer = ({ url }) => {
     playing: false,
     muted: false,
     volume: 0.5,
-    speed: 1
+    speed: 1,
+    played: 0,
+    seeking: false
   });
 
   const handleOnHover = () => {
     if (!controlsVisibility) {
       setControlsVisibility(true);
       setTimeout(() => setControlsVisibility(false), 3000);
+    }
+  };
+
+  // Function to handle OnProgress of Video
+  const handleOnProgress = state => {
+    if (!videoControls.seeking) {
+      setVideoControls({ ...videoControls, played: state.played });
     }
   };
 
@@ -37,6 +46,7 @@ export const VideoPlayer = ({ url }) => {
         muted={videoControls.muted}
         volume={videoControls.volume}
         playbackRate={videoControls.speed}
+        onProgress={state => handleOnProgress(state)}
       />
       {controlsVisibility && (
         <VideoControls
