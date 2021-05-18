@@ -3,7 +3,7 @@ import Reactplayer from "react-player";
 import styles from "../styles/VideoPlayer.module.scss";
 import { VideoControls } from "./VideoControls";
 
-export const VideoPlayer = ({ url }) => {
+export const VideoPlayer = ({ url, title }) => {
   const videoRef = useRef(null);
   const videoWrapperRef = useRef(null);
 
@@ -36,6 +36,7 @@ export const VideoPlayer = ({ url }) => {
     <main
       className={`${styles["VideoPlayerWrapper"]} bg-dark`}
       onMouseMove={() => handleOnHover()}
+      ref={videoWrapperRef}
     >
       <Reactplayer
         ref={videoRef}
@@ -47,6 +48,11 @@ export const VideoPlayer = ({ url }) => {
         volume={videoControls.volume}
         playbackRate={videoControls.speed}
         onProgress={state => handleOnProgress(state)}
+        config={{
+          youtube: {
+            playerVars: { controls: 0, rel: 0 }
+          }
+        }}
       />
       {controlsVisibility && (
         <VideoControls
@@ -54,6 +60,7 @@ export const VideoPlayer = ({ url }) => {
           setControls={setVideoControls}
           videoRef={videoRef}
           videoWrapperRef={videoWrapperRef}
+          title={title}
         />
       )}
     </main>

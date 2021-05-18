@@ -28,7 +28,8 @@ export const VideoControls = ({
   controls,
   setControls,
   videoRef,
-  videoWrapperRef
+  videoWrapperRef,
+  title
 }) => {
   // Volume Slider Visible on Hover
   const [volumeSlider, setVolumeSlider] = useState(false);
@@ -129,7 +130,7 @@ export const VideoControls = ({
     <Container fluid className={styles["controls-overlay"]}>
       {/* TOP: Title */}
       <Row className={`w-100 ${styles["title"]}`}>
-        <Col className="fs-3 fw-bold">Title</Col>
+        {!controls.playing && <Col className="fs-3 fw-bold">{title}</Col>}
       </Row>
 
       {/* BOTTOM: Controls */}

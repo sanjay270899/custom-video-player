@@ -1,14 +1,14 @@
 .controls-overlay {
   position: absolute;
   top: 0;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 0;
+  padding: 0 !important;
 
   .title,
   .controls {
