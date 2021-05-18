@@ -10,7 +10,8 @@ import {
   VolumeHigh,
   VolumeMute,
   VolumeLow,
-  VolumeMid
+  VolumeMid,
+  FullScreenExit
 } from "../assets/Icons";
 import { Slider } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -98,6 +99,10 @@ export const VideoControls = ({
   // Function to Handle FullScreen Button
   const handleFullScreen = () => {
     screenfull.toggle(videoWrapperRef.current);
+    setControls({
+      ...controls,
+      isFullScreen: !controls.isFullScreen
+    });
   };
 
   // Function to Handle Video Seekbar Slider Change
@@ -207,7 +212,7 @@ export const VideoControls = ({
               </Badge>
               {/* CONTROL: FullScreen */}
               <Icon onClick={() => handleFullScreen()}>
-                <FullScreen />
+                {controls.isFullScreen ? <FullScreenExit /> : <FullScreen />}
               </Icon>
             </Col>
           </Row>

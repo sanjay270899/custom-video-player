@@ -15,7 +15,8 @@ export const VideoPlayer = ({ url, title }) => {
     volume: 0.5,
     speed: 1,
     played: 0,
-    seeking: false
+    seeking: false,
+    isFullScreen: false
   });
 
   const handleOnHover = () => {
@@ -33,7 +34,7 @@ export const VideoPlayer = ({ url, title }) => {
   };
 
   return (
-    <main
+    <section
       className={`${styles["VideoPlayerWrapper"]} bg-dark`}
       onMouseMove={() => handleOnHover()}
       ref={videoWrapperRef}
@@ -48,11 +49,6 @@ export const VideoPlayer = ({ url, title }) => {
         volume={videoControls.volume}
         playbackRate={videoControls.speed}
         onProgress={state => handleOnProgress(state)}
-        config={{
-          youtube: {
-            playerVars: { controls: 0, rel: 0 }
-          }
-        }}
       />
       {controlsVisibility && (
         <VideoControls
@@ -63,6 +59,6 @@ export const VideoPlayer = ({ url, title }) => {
           title={title}
         />
       )}
-    </main>
+    </section>
   );
 };
