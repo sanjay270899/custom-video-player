@@ -20,7 +20,11 @@ export const Home = ({ videoQueue }) => {
               }`
         }
       />
-      <VideoQueue videoQueue={videoQueue} setSelectedVideo={setSelectedVideo} />
+      <VideoQueue
+        videoQueue={videoQueue}
+        setSelectedVideo={setSelectedVideo}
+        selectedVideo={selectedVideo}
+      />
     </main>
   );
 };

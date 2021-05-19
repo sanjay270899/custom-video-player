@@ -1,7 +1,7 @@
 import Carousel from "react-multi-carousel";
 import { Card, Container } from "react-bootstrap";
 
-export const VideoQueue = ({ videoQueue, setSelectedVideo }) => {
+export const VideoQueue = ({ videoQueue, setSelectedVideo, selectedVideo }) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1200 },
@@ -33,9 +33,13 @@ export const VideoQueue = ({ videoQueue, setSelectedVideo }) => {
             {videoQueue.map((video, at) => (
               <Card
                 key={at}
-                className="bg-dark text-white m-1 border border-secondary border-3 rounded-3"
+                className="bg-dark text-white m-1 rounded-3"
                 onClick={() => setSelectedVideo(at)}
-                style={{ cursor: "pointer" }}
+                style={{
+                  cursor: "pointer",
+                  border:
+                    selectedVideo == at ? "5px solid tomato" : "5px solid white"
+                }}
               >
                 <Card.Img
                   src={video.image}
