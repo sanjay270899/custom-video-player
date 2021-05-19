@@ -7,7 +7,8 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
   const [videoLinkInput, setVideoLinkInput] = useState("");
   const [alert, setAlert] = useState(false);
 
-  const handleOnSearch = () => {
+  const handleOnSearch = e => {
+    e.preventDefault();
     if (videoLinkInput === "") {
       setAlert(true);
       return;
@@ -56,7 +57,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
           Empty Input!
         </Alert>
       )}
-      <Form className="d-flex">
+      <Form className="d-flex" onSubmit={e => handleOnSearch(e)}>
         <FormControl
           type="text"
           placeholder="Search Key Word"
@@ -64,9 +65,9 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
           onChange={e => setVideoLinkInput(e.target.value)}
         />
         <Button
+          type="submit"
           variant="outline-info"
           className="mx-3 font-weight-bold"
-          onClick={() => handleOnSearch()}
         >
           ADD
         </Button>
