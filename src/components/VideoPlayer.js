@@ -33,11 +33,21 @@ export const VideoPlayer = ({ url, title }) => {
     }
   };
 
+  // Function to handle onClick on video player wrapper
+  const handleOnClick = () => {
+    if (!controlsVisibility)
+      setVideoControls(current => ({
+        ...current,
+        playing: !current.playing
+      }));
+  };
+
   return (
     <section
       className={`${styles["VideoPlayerWrapper"]} bg-dark`}
       onMouseMove={() => handleOnHover()}
       ref={videoWrapperRef}
+      onClick={() => handleOnClick()}
     >
       <Reactplayer
         ref={videoRef}
@@ -49,6 +59,7 @@ export const VideoPlayer = ({ url, title }) => {
         volume={videoControls.volume}
         playbackRate={videoControls.speed}
         onProgress={state => handleOnProgress(state)}
+        onEnded={() => setVideoControls({ ...videoControls, playing: false })}
       />
       {controlsVisibility && (
         <VideoControls

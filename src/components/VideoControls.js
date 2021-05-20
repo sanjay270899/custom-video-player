@@ -131,11 +131,28 @@ export const VideoControls = ({
     videoRef.current.seekTo(newPlayed / 100, "fraction");
   };
 
+  // Function to Handle onClick on controls-overlay
+  const handleOverlayOnClick = e => {
+    if (e.target.getAttribute("name") === "controls-overlay") {
+      setControls(current => ({ ...current, playing: !current.playing }));
+    }
+    console.log(e.target);
+  };
+
   return (
-    <Container fluid className={styles["controls-overlay"]}>
+    <Container
+      fluid
+      className={styles["controls-overlay"]}
+      onClick={e => handleOverlayOnClick(e)}
+      name="controls-overlay"
+    >
       {/* TOP: Title */}
       <Row className={`w-100 ${styles["title"]}`}>
-        {!controls.playing && <Col className="fs-3 fw-bold">{title}</Col>}
+        {!controls.playing && (
+          <Col className="fs-3 fw-bold" name="controls-overlay">
+            {title}
+          </Col>
+        )}
       </Row>
 
       {/* BOTTOM: Controls */}
