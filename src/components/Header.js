@@ -5,15 +5,27 @@ import pexels from "../api/pexels";
 
 export const Header = ({ videoQueue, setVideoQueue }) => {
   const [videoLinkInput, setVideoLinkInput] = useState("");
-  const [alert, setAlert] = useState(false);
+  const [alert, setAlert] = useState({
+    state: false,
+    message: "",
+    status: "success"
+  });
 
   const handleOnSearch = e => {
     e.preventDefault();
     if (videoLinkInput === "") {
-      setAlert(true);
+      setAlert({
+        status: "warning",
+        state: true,
+        message: "Empty Input!"
+      });
       return;
     }
-    setAlert(false);
+    setAlert({
+      status: "success",
+      state: false,
+      message: ""
+    });
     fetchAndAddVideo(videoLinkInput);
     setVideoLinkInput("");
   };
@@ -28,12 +40,27 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
         }
       });
 
+      if (response.data.videos.length === 0) {
+        setAlert({
+          status: "warning",
+          state: true,
+          message: "No Video Found!"
+        });
+        return;
+      }
+
       const videos = response.data.videos.map(obj => ({
         ...obj,
         text: str
       }));
 
       setVideoQueue([...videoQueue, ...videos]);
+
+      setAlert({
+        status: "success",
+        state: true,
+        message: `${videos.length} Video(s) added in queue!`
+      });
     } catch (err) {
       console.log(err);
     }
@@ -48,13 +75,13 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
       <Link to="/" className="navbar-brand px-4 text-white">
         S2R2 Video Player
       </Link>
-      {alert && (
+      {alert.state && (
         <Alert
-          variant="warning"
-          onClick={() => setAlert(false)}
+          variant={alert.status}
+          onClick={() => setAlert({ ...alert, state: false })}
           className="m-0 px-2 py-1"
         >
-          Empty Input!
+          {alert.message}
         </Alert>
       )}
       <Form className="d-flex" onSubmit={e => handleOnSearch(e)}>
