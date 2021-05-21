@@ -1,10 +1,6 @@
 export const Play = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="ionicon"
-      viewBox="0 0 512 512"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <title>Play</title>
       <path d="M133 440a35.37 35.37 0 01-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0135.77.45l247.85 148.36a36 36 0 010 61l-247.89 148.4A35.5 35.5 0 01133 440z" />
     </svg>
@@ -30,7 +26,7 @@ export const Forward10 = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      enable-background="new 0 0 24 24"
+      enableBackground="new 0 0 24 24"
       height="24px"
       viewBox="0 0 24 24"
       width="24px"
@@ -100,11 +96,7 @@ export const FullScreenExit = () => {
 
 export const VolumeMute = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="ionicon"
-      viewBox="0 0 512 512"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <title>Volume Mute</title>
       <path
         fill="none"
@@ -122,11 +114,7 @@ export const VolumeMute = () => {
 
 export const VolumeLow = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="ionicon"
-      viewBox="0 0 512 512"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <title>Volume Low</title>
       <path d="M296 416.19a23.92 23.92 0 01-14.21-4.69l-.66-.51-91.46-75H120a24 24 0 01-24-24V200a24 24 0 0124-24h69.65l91.46-75 .66-.51A24 24 0 01320 119.83v272.34a24 24 0 01-24 24zM384 336a16 16 0 01-14.29-23.18c9.49-18.9 14.3-38 14.3-56.82 0-19.36-4.66-37.92-14.25-56.73a16 16 0 0128.5-14.54C410.2 208.16 416 231.47 416 256c0 23.83-6 47.78-17.7 71.18A16 16 0 01384 336z" />
     </svg>
@@ -135,11 +123,7 @@ export const VolumeLow = () => {
 
 export const VolumeMid = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="ionicon"
-      viewBox="0 0 512 512"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <title>Volume Medium</title>
       <path d="M264 416.19a23.92 23.92 0 01-14.21-4.69l-.66-.51-91.46-75H88a24 24 0 01-24-24V200a24 24 0 0124-24h69.65l91.46-75 .66-.51A24 24 0 01288 119.83v272.34a24 24 0 01-24 24zM352 336a16 16 0 01-14.29-23.18c9.49-18.9 14.3-38 14.3-56.82 0-19.36-4.66-37.92-14.25-56.73a16 16 0 0128.5-14.54C378.2 208.16 384 231.47 384 256c0 23.83-6 47.78-17.7 71.18A16 16 0 01352 336z" />
       <path d="M400 384a16 16 0 01-13.87-24C405 327.05 416 299.45 416 256c0-44.12-10.94-71.52-29.83-103.95A16 16 0 01413.83 136C434.92 172.16 448 204.88 448 256c0 50.36-13.06 83.24-34.12 120a16 16 0 01-13.88 8z" />
@@ -149,11 +133,7 @@ export const VolumeMid = () => {
 
 export const VolumeHigh = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="ionicon"
-      viewBox="0 0 512 512"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <title>Volume High</title>
       <path d="M232 416a23.88 23.88 0 01-14.2-4.68 8.27 8.27 0 01-.66-.51L125.76 336H56a24 24 0 01-24-24V200a24 24 0 0124-24h69.75l91.37-74.81a8.27 8.27 0 01.66-.51A24 24 0 01256 120v272a24 24 0 01-24 24zm-106.18-80zm-.27-159.86zM320 336a16 16 0 01-14.29-23.19c9.49-18.87 14.3-38 14.3-56.81 0-19.38-4.66-37.94-14.25-56.73a16 16 0 0128.5-14.54C346.19 208.12 352 231.44 352 256c0 23.86-6 47.81-17.7 71.19A16 16 0 01320 336z" />
       <path d="M368 384a16 16 0 01-13.86-24C373.05 327.09 384 299.51 384 256c0-44.17-10.93-71.56-29.82-103.94a16 16 0 0127.64-16.12C402.92 172.11 416 204.81 416 256c0 50.43-13.06 83.29-34.13 120a16 16 0 01-13.87 8z" />
