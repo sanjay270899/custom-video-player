@@ -14,7 +14,7 @@ export const Home = ({ videoQueue }) => {
         }
         title={
           selectedVideo === -1
-            ? "No Video Slected"
+            ? "No Video Selected"
             : `${selectedVideo + 1}. ${videoQueue[selectedVideo].text}-${
                 videoQueue[selectedVideo].id
               }`
