@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { FormControl, Navbar, Button, Form, Alert } from "react-bootstrap";
+import {
+  FormControl,
+  Navbar,
+  Button,
+  Form,
+  Alert,
+  Spinner
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import pexels from "../api/pexels";
 
 export const Header = ({ videoQueue, setVideoQueue }) => {
   const [videoLinkInput, setVideoLinkInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState({
     state: false,
     message: "",
@@ -31,6 +39,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
   };
 
   const fetchAndAddVideo = async str => {
+    setIsLoading(true);
     try {
       const response = await pexels.get("/videos/search", {
         params: {
@@ -46,6 +55,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
           state: true,
           message: "No Video Found!"
         });
+        setIsLoading(false);
         return;
       }
 
@@ -63,7 +73,13 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
       });
     } catch (err) {
       console.log(err);
+      setAlert({
+        status: "warning",
+        state: true,
+        message: err.message
+      });
     }
+    setIsLoading(false);
   };
 
   return (
@@ -94,8 +110,18 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
         <Button
           type="submit"
           variant="outline-info"
-          className="mx-3 font-weight-bold"
+          className="mx-3 font-weight-bold d-flex align-items-center"
+          disabled={isLoading}
         >
+          {isLoading && (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
           ADD
         </Button>
       </Form>
