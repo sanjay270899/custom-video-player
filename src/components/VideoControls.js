@@ -1,6 +1,11 @@
+// Libraries
 import { useState } from "react";
 import { Container, Row, Col, Badge } from "react-bootstrap";
-import styles from "../styles/VideoControls.module.scss";
+import { Slider } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import screenfull from "screenfull";
+
+// Assets
 import {
   Forward10,
   FullScreen,
@@ -13,12 +18,12 @@ import {
   VolumeMid,
   FullScreenExit
 } from "../assets/Icons";
-import { Slider } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import screenfull from "screenfull";
 import { formatTime } from "../assets/Helper.js";
 
-// Overriding the default color of Slider to White
+// Styles
+import styles from "../styles/VideoControls.module.scss";
+
+// Overriding the default color of Slider with White
 const WhiteSlider = withStyles({
   root: {
     color: "white"
@@ -35,11 +40,14 @@ export const VideoControls = ({
   // Volume Slider Visible on Hover
   const [volumeSlider, setVolumeSlider] = useState(false);
 
+  // Number of seconds video already played
   const currentSeconds = videoRef.current
     ? videoRef.current.getCurrentTime()
     : 0;
+  // Total number of seconds in video
   const totalSeconds = videoRef.current ? videoRef.current.getDuration() : 0;
 
+  // In hh:mm:ss format
   const currentTime = formatTime(currentSeconds);
   const totalTime = formatTime(totalSeconds);
 
@@ -136,7 +144,6 @@ export const VideoControls = ({
     if (e.target.getAttribute("name") === "controls-overlay") {
       setControls(current => ({ ...current, playing: !current.playing }));
     }
-    console.log(e.target);
   };
 
   return (

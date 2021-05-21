@@ -1,3 +1,4 @@
+// Libraries
 import { useState } from "react";
 import {
   FormControl,
@@ -8,19 +9,27 @@ import {
   Spinner
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
+// PEXELS API
 import pexels from "../api/pexels";
 
 export const Header = ({ videoQueue, setVideoQueue }) => {
+  // State for Video Search Input
   const [videoLinkInput, setVideoLinkInput] = useState("");
+  // State for isLoading while search
   const [isLoading, setIsLoading] = useState(false);
+  // State for Alert
   const [alert, setAlert] = useState({
     state: false,
     message: "",
     status: "success"
   });
 
+  // Function to handle onSearch
   const handleOnSearch = e => {
     e.preventDefault();
+
+    // If input is empty, then show alert
     if (videoLinkInput === "") {
       setAlert({
         status: "warning",
@@ -41,6 +50,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
   const fetchAndAddVideo = async str => {
     setIsLoading(true);
     try {
+      // PEXELS API
       const response = await pexels.get("/videos/search", {
         params: {
           query: str,
@@ -49,6 +59,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
         }
       });
 
+      // If no video found, then show alert
       if (response.data.videos.length === 0) {
         setAlert({
           status: "warning",
@@ -59,6 +70,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
         return;
       }
 
+      // Adding 'text' property to all objects of array
       const videos = response.data.videos.map(obj => ({
         ...obj,
         text: str
@@ -72,6 +84,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
         message: `${videos.length} Video(s) added in queue!`
       });
     } catch (err) {
+      // Error handling while hitting API endpoint
       console.log(err);
       setAlert({
         status: "warning",
@@ -91,6 +104,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
       <Link to="/" className="navbar-brand px-4 text-white">
         S2R2 Video Player
       </Link>
+      {/* ALERT */}
       {alert.state && (
         <Alert
           variant={alert.status}
@@ -101,12 +115,14 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
         </Alert>
       )}
       <Form className="d-flex" onSubmit={e => handleOnSearch(e)}>
+        {/* SEARCH INPUT */}
         <FormControl
           type="text"
           placeholder="Search Key Word"
           value={videoLinkInput}
           onChange={e => setVideoLinkInput(e.target.value)}
         />
+        {/* SEARCH BUTTON */}
         <Button
           type="submit"
           variant="outline-info"
@@ -114,6 +130,7 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
           disabled={isLoading}
         >
           {isLoading && (
+            /* LOADER */
             <Spinner
               as="span"
               animation="grow"

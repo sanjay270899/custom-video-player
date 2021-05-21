@@ -1,9 +1,13 @@
+// Libraries
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Header } from "./components/Header";
 import { useState } from "react";
+
+// Components
+import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 
 export default function App() {
+  // State for Video Queue
   const [videoQueue, setVideoQueue] = useState([]);
   return (
     <Router>

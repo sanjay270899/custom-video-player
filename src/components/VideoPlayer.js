@@ -1,14 +1,23 @@
+// Libraries
 import { useState, useRef } from "react";
 import Reactplayer from "react-player";
-import styles from "../styles/VideoPlayer.module.scss";
+
+// Components
 import { VideoControls } from "./VideoControls";
 
+// Styles
+import styles from "../styles/VideoPlayer.module.scss";
+
 export const VideoPlayer = ({ url, title }) => {
+  // Reference of Video Player
   const videoRef = useRef(null);
+  // Reference of Video Player Wrapper
   const videoWrapperRef = useRef(null);
 
+  // State if controls are visible or not
   const [controlsVisibility, setControlsVisibility] = useState(false);
 
+  // State for all controls of video player
   const [videoControls, setVideoControls] = useState({
     playing: false,
     muted: false,
@@ -19,6 +28,7 @@ export const VideoPlayer = ({ url, title }) => {
     isFullScreen: false
   });
 
+  // Function to handle onHover on video player
   const handleOnHover = () => {
     if (!controlsVisibility) {
       setControlsVisibility(true);

@@ -1,8 +1,12 @@
+// Libraries
 import { useState } from "react";
+
+// Components
 import { VideoPlayer } from "../components/VideoPlayer";
 import { VideoQueue } from "../components/VideoQueue";
 
 export const Home = ({ videoQueue }) => {
+  // State for current selected Video in queue
   const [selectedVideo, setSelectedVideo] = useState(-1);
   return (
     <main className="d-flex-col m-5">

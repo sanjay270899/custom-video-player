@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// AXIOS Configuration with PEXELS API
 export default axios.create({
   baseURL: `https://api.pexels.com`,
   headers: {
