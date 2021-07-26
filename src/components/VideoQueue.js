@@ -1,5 +1,6 @@
 import Carousel from "react-multi-carousel";
 import { Card, Container } from "react-bootstrap";
+import { GAevent } from "../utils/GA";
 
 export const VideoQueue = ({ videoQueue, setSelectedVideo, selectedVideo }) => {
   const responsive = {
@@ -34,7 +35,14 @@ export const VideoQueue = ({ videoQueue, setSelectedVideo, selectedVideo }) => {
               <Card
                 key={at}
                 className="bg-dark text-white m-1 rounded-3"
-                onClick={() => setSelectedVideo(at)}
+                onClick={() => {
+                  setSelectedVideo(at);
+                  GAevent({
+                    category: "Click",
+                    action: "Video Selected from Queue",
+                    label: `At: ${at}`
+                  });
+                }}
                 style={{
                   cursor: "pointer",
                   border:

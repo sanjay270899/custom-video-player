@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 
 // PEXELS API
 import pexels from "../api/pexels";
+import { GAevent } from "../utils/GA";
 
 export const Header = ({ videoQueue, setVideoQueue }) => {
   // State for Video Search Input
@@ -38,6 +39,13 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
       });
       return;
     }
+
+    GAevent({
+      category: "Click",
+      action: "Searched for a video",
+      label: `Search Text: ${videoLinkInput}`
+    });
+
     setAlert({
       status: "success",
       state: false,
@@ -57,6 +65,12 @@ export const Header = ({ videoQueue, setVideoQueue }) => {
           per_page: 3,
           page: 1
         }
+      });
+
+      GAevent({
+        category: "API",
+        action: "GET: PEXELS",
+        label: "Path: /videos/search"
       });
 
       // If no video found, then show alert

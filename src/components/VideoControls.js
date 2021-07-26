@@ -22,6 +22,7 @@ import { formatTime } from "../assets/Helper.js";
 
 // Styles
 import styles from "../styles/VideoControls.module.scss";
+import { GAevent } from "../utils/GA";
 
 // Overriding the default color of Slider with White
 const WhiteSlider = withStyles({
@@ -57,16 +58,31 @@ export const VideoControls = ({
       ...controls,
       playing: !controls.playing
     });
+
+    GAevent({
+      category: "Player",
+      action: `Video ${controls.playing ? "Paused" : "Played"}`
+    });
   };
 
   // Funtion to Handle Forward10 Button
   const handleForward10 = () => {
     videoRef.current.seekTo(videoRef.current.getCurrentTime() + 10);
+
+    GAevent({
+      category: "Player",
+      action: "Video Forward10"
+    });
   };
 
   // Funtion to Handle Replay10 Button
   const handleReplay10 = () => {
     videoRef.current.seekTo(videoRef.current.getCurrentTime() - 10);
+
+    GAevent({
+      category: "Player",
+      action: "Video Replay10"
+    });
   };
 
   // Funtion to Mute the Volume
@@ -74,6 +90,11 @@ export const VideoControls = ({
     setControls({
       ...controls,
       muted: !controls.muted
+    });
+
+    GAevent({
+      category: "Player",
+      action: `Video ${controls.muted ? "Unmuted" : "Muted"}`
     });
   };
 
@@ -110,6 +131,11 @@ export const VideoControls = ({
     setControls({
       ...controls,
       isFullScreen: !controls.isFullScreen
+    });
+
+    GAevent({
+      category: "Player",
+      action: `Video Fullscreen ${controls.isFullScreen ? "Exit" : "Enter"}`
     });
   };
 
